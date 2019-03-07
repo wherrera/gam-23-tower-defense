@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour {
 
     public GameObject bullet;
+    public float fireDelay = 1f;
     public float bulletForce;
 
     private Creep m_Target;
@@ -19,8 +20,7 @@ public class Tower : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-	// Use this for initialization
-	void Start ()
+    void FindTarget()
     {
         Creep[] creeps = FindObjectsOfType<Creep>();
 
@@ -40,7 +40,7 @@ public class Tower : MonoBehaviour {
 
             FaceTarget(m_Target);
 
-            if (m_FireDelay > 2f)
+            if (m_FireDelay >= fireDelay)
             {
                 m_FireDelay = 0;
 
@@ -50,6 +50,10 @@ public class Tower : MonoBehaviour {
 
                 instantiated.GetComponent<Rigidbody2D>().AddForce(toward * bulletForce);
             }
+        }
+        else
+        {
+            FindTarget();
         }
     }
 }

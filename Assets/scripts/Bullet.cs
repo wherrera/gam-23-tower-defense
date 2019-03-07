@@ -13,9 +13,9 @@ public class Bullet : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Hit Enemy");
-
             collision.gameObject.SendMessage("ApplyDamage", 10);
+
+            Destroy(gameObject);
         }
     }
 }
